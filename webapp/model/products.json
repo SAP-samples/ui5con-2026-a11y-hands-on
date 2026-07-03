@@ -1,0 +1,22 @@
+{
+	"products": [
+		{ "id": 1, "name": "ThinkPad X1", "desc": "14\" WUXGA, Intel i7, 16GB RAM, 512GB SSD", "price": 1849, "salePrice": 1599, "image": "https://picsum.photos/seed/thinkpad/400/280", "rating": 4.7, "reviews": 234, "category": "Laptops", "inStock": true },
+		{ "id": 2, "name": "Dell UltraSharp", "desc": "27\" 4K UHD USB-C Hub Monitor, IPS Black", "price": 619, "salePrice": null, "image": "https://picsum.photos/seed/dellmonitor/400/280", "rating": 4.5, "reviews": 189, "category": "Monitors", "inStock": true },
+		{ "id": 3, "name": "MacBook Pro 14\" M3 Pro", "desc": "14\" Liquid Retina XDR, 18GB RAM, 512GB SSD", "price": 2399, "salePrice": 2199, "image": "https://picsum.photos/seed/macbookpro/400/280", "rating": 4.9, "reviews": 567, "category": "Laptops", "inStock": false },
+		{ "id": 4, "name": "Logitech MX Master 3S", "desc": "Wireless ergonomic mouse, 8K DPI, USB-C", "price": 99, "salePrice": null, "image": "https://picsum.photos/seed/mxmaster/400/280", "rating": 4.6, "reviews": 1203, "category": "Peripherals", "inStock": true },
+		{ "id": 5, "name": "Samsung 49\" Odyssey G9 Curved Super-Ultrawide Monitor", "desc": "49\" DQHD 240Hz Curved Gaming Monitor", "price": 1299, "salePrice": 999, "image": "https://picsum.photos/seed/samsungmonitor/400/280", "rating": 4.3, "reviews": 98, "category": "Monitors", "inStock": true },
+		{ "id": 6, "name": "Jabra Evolve2 85", "desc": "Wireless ANC headset, MS Teams certified", "price": 449, "salePrice": null, "image": "https://picsum.photos/seed/jabra85/400/280", "rating": 4.4, "reviews": 312, "category": "Peripherals", "inStock": true },
+		{ "id": 7, "name": "HP EliteDisplay", "desc": "23.8\" FHD USB-C Docking Monitor", "price": 399, "salePrice": 349, "image": "https://picsum.photos/seed/hpmonitor2/400/280", "rating": 4.1, "reviews": 76, "category": "Monitors", "inStock": false },
+		{ "id": 8, "name": "Keychron Q1 Pro", "desc": "75% wireless mechanical keyboard, aluminum", "price": 199, "salePrice": null, "image": "https://picsum.photos/seed/keychron1/400/280", "rating": 4.8, "reviews": 445, "category": "Peripherals", "inStock": true }
+	],
+	"orderList": [],
+	"lastFocusedProductId": null,
+	"pendingOrder": { "productId": null, "productName": "" },
+	"selectedCategory": "All",
+	"sortKey": "relevance",
+	"filters": {
+		"brand": { "Lenovo": false, "Dell": false, "Apple": false, "HP": false, "Samsung": false },
+		"price": { "under100": false, "100to500": false, "500to1000": false, "over1000": false },
+		"stock": { "in": false, "out": false }
+	}
+}

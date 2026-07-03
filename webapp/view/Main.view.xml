@@ -1,0 +1,276 @@
+
+<mvc:View
+	controllerName="com.sap.a11yworkshop.controller.Main"
+	displayBlock="true"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:f="sap.f"
+	xmlns:layout="sap.ui.layout"
+	xmlns:core="sap.ui.core"
+	core:require="{
+		formatter: 'com/sap/a11yworkshop/model/formatter'
+	}">
+
+	<Page id="idMainPage" enableScrolling="true">
+
+		<customHeader>
+			<!-- ============================================================
+				Custom page header. sap.m.Bar implements sap.m.IBar so it is
+				a valid customHeader for sap.m.Page (unlike sap.f.ShellBar).
+				GAP — Exercise 1 (heading hierarchy) part A: idAppTitle used
+				to declare level="H1", giving the page a single top-level
+				heading. That's now missing → sap.m.Title falls back to
+				level="Auto" → <h2>. The page therefore has NO <h1> at all,
+				and every downstream Title (which also defaults to <h2>)
+				sits at the same level as the app title.
+				============================================================ -->
+			<Bar id="idHeader" design="Header">
+				<contentLeft>
+					<Title id="idAppTitle" text="IT Equipment Catalog"/>
+					<Text text="Internal Procurement" class="sapUiTinyMarginBegin" />
+				</contentLeft>
+				<contentRight>
+					<Button
+						icon="sap-icon://bell"
+						tooltip="Notifications (3 new)"
+						type="Transparent" />
+					<Button
+						icon="sap-icon://cart"
+						text="Orders"
+						tooltip="Open orders"
+						type="Transparent" />
+					<Avatar initials="IP" backgroundColor="Accent6" displaySize="XS" />
+				</contentRight>
+			</Bar>
+		</customHeader>
+
+		<!--
+			GAP — Exercise 5 (landmarks) part C: Sub-header hosting the
+			category Breadcrumbs. sap.m.Page's `subHeader` aggregation
+			renders this Bar as a generic <header> under the customHeader,
+			but the Breadcrumbs inside are semantically NAVIGATION (they
+			change the category filter — they're the primary way to move
+			between product sections). Wrapping them in a <nav> landmark
+			would give screen-reader rotor users a "navigation" entry.
+			Today there is no <nav>: the breadcrumbs sit in a generic Bar,
+			so they're orphan content. axe flags "region" / "All page
+			content should be contained by landmarks".
+		-->
+		<subHeader>
+			<Bar id="idSubHeader" design="SubHeader">
+				<contentLeft>
+					<Breadcrumbs id="idCategoryBreadcrumbs" separatorStyle="Slash" maxDisplayedBreadcrumbs="4">
+						<Link text="All Products" press=".onCategorySelect">
+							<customData>
+								<core:CustomData key="categoryKey" value="All" writeToDom="true" />
+							</customData>
+						</Link>
+						<Link text="Laptops" press=".onCategorySelect">
+							<customData>
+								<core:CustomData key="categoryKey" value="Laptops" writeToDom="true" />
+							</customData>
+						</Link>
+						<Link text="Monitors" press=".onCategorySelect">
+							<customData>
+								<core:CustomData key="categoryKey" value="Monitors" writeToDom="true" />
+							</customData>
+						</Link>
+						<Link text="Peripherals" press=".onCategorySelect">
+							<customData>
+								<core:CustomData key="categoryKey" value="Peripherals" writeToDom="true" />
+							</customData>
+						</Link>
+					</Breadcrumbs>
+				</contentLeft>
+			</Bar>
+		</subHeader>
+
+		<content>
+			<!-- ============================================================
+
+				Layout split: filter sidebar (260px) + main content (flex).
+				Sits inside the Page's `content` aggregation, which is the
+				<main> landmark.
+				============================================================ -->
+			<HBox id="idMainSplit" alignItems="Stretch" height="100%">
+				<!--
+					GAP — Exercise 5 (landmarks) part A: The filter sidebar used to
+					declare itself as a complementary landmark (accessibleRole=
+					"Complementary" → <aside>). That role is now missing, so the
+					Panel renders as a generic <div> and the filters become orphan
+					content. axe flags "region" / "All page content should be
+					contained by landmarks".
+				-->
+				<Panel
+					id="idFilterPanel"
+					headerText="Filters"
+					expandable="false"
+					class="workshop-filter-panel"
+					width="260px">
+					<content>
+						<VBox class="sapUiMediumMarginBottom sapUiSmallMargin">
+							<!-- GAP — Exercise 1 (heading hierarchy) part B: Title without `level` → defaults to "Auto" → <h2>.
+								Should be H3 to nest under the panel header. -->
+							<Title text="Brand" />
+							<CheckBox text="Lenovo" selected="{catalog>/filters/brand/Lenovo}" select=".onFilterChange" />
+							<CheckBox text="Dell" selected="{catalog>/filters/brand/Dell}" select=".onFilterChange" />
+							<CheckBox text="Apple" selected="{catalog>/filters/brand/Apple}" select=".onFilterChange" />
+							<CheckBox text="HP" selected="{catalog>/filters/brand/HP}" select=".onFilterChange" />
+							<CheckBox text="Samsung" selected="{catalog>/filters/brand/Samsung}" select=".onFilterChange" />
+						</VBox>
+						<VBox class="sapUiMediumMarginBottom sapUiSmallMargin">
+							<Title text="Price Range" />
+							<CheckBox text="Under €100" selected="{catalog>/filters/price/under100}" select=".onFilterChange" />
+							<CheckBox text="€100 – €500" selected="{catalog>/filters/price/100to500}" select=".onFilterChange" />
+							<CheckBox text="€500 – €1,000" selected="{catalog>/filters/price/500to1000}" select=".onFilterChange" />
+							<CheckBox text="Over €1,000" selected="{catalog>/filters/price/over1000}" select=".onFilterChange" />
+						</VBox>
+						<VBox class="sapUiSmallMargin">
+							<Title text="Availability" />
+							<CheckBox text="In Stock" selected="{catalog>/filters/stock/in}" select=".onFilterChange" />
+							<CheckBox text="Out of Stock" selected="{catalog>/filters/stock/out}" select=".onFilterChange" />
+						</VBox>
+					</content>
+				</Panel>
+
+				<!-- ============================================================
+					Main content — category tabs + sort toolbar + product grid
+					============================================================ -->
+				<VBox id="idMainContent" width="100%">
+					<layoutData>
+						<FlexItemData growFactor="1" minWidth="0" />
+					</layoutData>
+
+					<!--
+						GAP — Exercise 5 (landmarks) part B: The products area used
+						to declare itself as a Region landmark (accessibleRole=
+						"Region" → <section role="region" aria-labelledby="…">).
+						That role is now missing, so the Panel renders as a generic
+						<div> and the entire product catalog becomes orphan
+						content. Combined with part A above and the missing
+						`landmarkInfo` on the Page, the app has ZERO landmarks —
+						screen-reader rotor navigation is fully broken.
+					-->
+					<Panel
+						id="idProductRegion"
+						headerText="Product catalog"
+						expandable="false">
+						<content>
+							<!-- Sort toolbar -->
+							<OverflowToolbar>
+								<Text text="{
+									parts: ['catalog>/products', 'catalog>/selectedCategory'],
+									formatter: 'formatter.productCountText',
+									mode: 'OneWay'
+								}" />
+								<ToolbarSpacer />
+								<!--
+									GAP — Exercise 3 (labeling): The Select below has no associated
+									Label control (no `sap.m.Label` with matching `labelFor`, and no
+									`ariaLabelledBy` on the Select itself). Its rendered DOM is a
+									<div role="combobox"> with no accessible name — axe flags
+									"Form elements must have labels" / "ARIA input fields must have
+									an accessible name". Sighted users can still see the placeholder
+									text, but screen-reader users hear only "combobox".
+								-->
+								<Select id="idSortSelect" selectedKey="{catalog>/sortKey}" change=".onSortChange">
+									<core:Item key="relevance" text="Relevance" />
+									<core:Item key="price-asc" text="Price: Low to High" />
+									<core:Item key="price-desc" text="Price: High to Low" />
+									<core:Item key="rating" text="Rating" />
+								</Select>
+							</OverflowToolbar>
+
+							<VBox id="idProductGrid" class="catalog-host"
+								items="{
+									path: 'catalog>/products',
+									templateShareable: false
+								}">
+								<items>
+									<HBox class="workshop-card">
+										<VBox class="sapUiSmallMargin" width="100%">
+											<!--
+												GAP — Exercise 2 (image alt text): Image decorative:false
+												(so it's exposed to AT) and `alt` unset → no accessible
+												name. axe flags "image-alt". Fix: bind alt="{catalog>name}".
+											-->
+											<Image
+												src="{catalog>image}"
+												decorative="false"
+												densityAware="false"
+												width="100%"
+												height="180px"
+												class="sapUiTinyMarginBottom" />
+
+											<!--
+												GAP — Exercise 1 (heading hierarchy) part B: Title default
+												wrapping=false + level="Auto". Long product names get cut
+												by CSS ellipsis with no tooltip.
+												Fix: wrapping="true" level="H3".
+											-->
+											<Title text="{catalog>name}" class="workshop-title-clamp sapUiTinyMarginBottom" />
+
+											<Text text="{catalog>desc}" maxLines="2" class="sapUiTinyMarginBottom" />
+
+											<ObjectStatus
+												text="{= ${catalog>inStock} ? 'In stock' : 'Out of stock' }"
+												state="{
+													path: 'catalog>inStock',
+													formatter: 'formatter.formatStockState'
+												}"
+												class="sapUiTinyMarginBottom" />
+
+											<!-- Price block — sale price as H4 with strike-through old price -->
+											<VBox class="sapUiTinyMarginBottom">
+												<Title
+													text="{
+														parts: ['catalog>price', 'catalog>salePrice'],
+														formatter: 'formatter.formatVisiblePrice'
+													}"
+													level="H4" />
+												<Text
+													visible="{= !!${catalog>salePrice} }"
+													text="{
+														parts: ['catalog>price', 'catalog>salePrice'],
+														formatter: 'formatter.formatWasPrice'
+													}"
+													class="workshop-price-was" />
+											</VBox>
+
+											<!-- Footer row: wishlist/share + Order -->
+											<HBox alignItems="Center" justifyContent="SpaceBetween" class="sapUiTinyMarginTop">
+												<HBox>
+													<!--
+														GAP — Exercise 6 (skill sweep): icon-only Button
+														without `tooltip` → no accessible name. UI5 maps
+														tooltip to aria-label on icon-only Buttons.
+														Fix: tooltip="Add to wishlist". Handed off to the
+														ui5-accessibility skill in Exercise 6 rather than
+														hand-taught.
+													-->
+													<Button icon="sap-icon://heart" type="Transparent" press=".onWishlistPress" />
+													<Button icon="sap-icon://share-2" type="Transparent" press=".onSharePress" />
+												</HBox>
+
+												<Button
+													text="Order Now"
+													type="Emphasized"
+													icon="sap-icon://cart-3"
+													press=".onOrderPress">
+													<customData>
+														<core:CustomData key="productId" value="{= '' + ${catalog>id} }" writeToDom="true" />
+													</customData>
+												</Button>
+											</HBox>
+										</VBox>
+									</HBox>
+								</items>
+							</VBox>
+					</content>
+				</Panel>
+				</VBox>
+			</HBox>
+		</content>
+	</Page>
+
+</mvc:View>

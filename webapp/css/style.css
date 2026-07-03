@@ -1,0 +1,122 @@
+html, body { margin: 0; height: 100vh; }
+
+/*
+	Anchor the layout to the viewport.
+
+	UI5's ComponentSupport strips `data-sap-ui-component` from the
+	placeholder div once it boots, leaving only `data-name="…"`. The
+	UIArea container UI5 inserts inside it carries an id ending in
+	`-uiarea`; target by attribute-suffix selector so it works no
+	matter what numeric prefix UI5 assigns.
+
+	Chain:
+	  body > div[data-name="com.sap.a11yworkshop"]      (Component wrapper)
+	    > div[id$="-uiarea"]                            (UIArea container)
+	      > .sapUiView                                  (root View)
+	        > Page#idMainPage                           (root Page)
+*/
+div[data-name="com.sap.a11yworkshop"] {
+	height: 100vh;
+}
+div[data-name="com.sap.a11yworkshop"] > div,
+div[id$="-uiarea"],
+.sapUiView {
+	height: 100%;
+}
+#idMainPage {
+	height: 100%;
+}
+#idMainSplit {
+	height: 100%;
+	min-height: 0;
+}
+
+/*
+	Filter sidebar panel.
+	- Background lives on the Panel root so the *entire* 260px column reads
+	  as white even when the inner content stops short.
+	- Square off the right edge (no border-radius, no right border) so the
+	  panel reads as a sidebar flush against the IconTabBar / product area
+	  instead of a floating card with a gap.
+*/
+.workshop-filter-panel,
+.workshop-filter-panel .sapMPanelContent,
+.workshop-filter-panel .sapMPanelExpandablePart,
+.workshop-filter-panel .sapMPanelWrappingDivTb {
+	height: 100%;
+	box-sizing: border-box;
+}
+.workshop-filter-panel {
+	background: var(--sapTile_Background, #fff);
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+	border-right: 0;
+}
+.workshop-filter-panel .sapMPanelContent,
+.workshop-filter-panel .sapMPanelExpandablePart,
+.workshop-filter-panel .sapMPanelWrappingDivTb {
+	background: transparent;
+}
+
+/*
+	Force a single-line ellipsis on product card Titles. Together with the
+	default sap.m.Title `wrapping=false`, this makes the truncation defect
+	visible during the workshop. (No UI5 equivalent for forcing the ellipsis.)
+*/
+.workshop-title-clamp .sapMTitleInner,
+.workshop-title-clamp {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: block;
+	max-width: 100%;
+}
+
+/*
+	Strike-through "was €X" old price next to the sale price.
+	(No UI5 control with built-in strike-through.)
+*/
+.workshop-price-was {
+	color: #6a6d70;
+	font-size: 12px;
+	text-decoration: line-through;
+}
+
+/*
+	Responsive auto-fill product grid. sap.ui.layout.Grid is span-math (12/24
+	cols), this gives the "fit as many cards as fit" behaviour the workshop
+	originally demonstrated.
+*/
+.catalog-host {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+	gap: 1rem;
+	padding: 1rem;
+}
+
+/*
+	Each product card is a sap.m.HBox. Give it a subtle card look so the
+	grid still reads as cards visually, without using sap.m.Panel (which
+	would add its own header semantics we don't want here).
+
+	Layout notes:
+	- `min-width: 0` on the card and its flex children lets the flex
+	  algorithm shrink content (image, long product names, Order button)
+	  to fit the grid track. Without this, intrinsic widths push the
+	  card past its track and clip against `overflow: hidden`.
+	- `box-sizing: border-box` so the 1px border doesn't get added on
+	  top of the grid track width.
+*/
+.catalog-host > .workshop-card {
+	background: var(--sapTile_Background, #fff);
+	border: 1px solid var(--sapNeutralBorderColor, #d9d9d9);
+	border-radius: 0.5rem;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+	box-sizing: border-box;
+	overflow: hidden;
+	min-width: 0;
+}
+.catalog-host > .workshop-card > * {
+	min-width: 0;
+	flex: 1 1 auto;
+}

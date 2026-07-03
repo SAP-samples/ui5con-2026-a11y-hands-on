@@ -1,0 +1,36 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+
+	<!--
+		Confirmation-style order dialog.
+
+		GAP — defect #10:
+		The Dialog hides its built-in header (`showHeader="false"`) and renders
+		the title as a plain `sap.m.Text` inside the content. Consequences:
+		  - no header → no automatic `aria-labelledby` from UI5,
+		  - the Text node is just a `<span>` with no role and is not linked
+		    to the Dialog,
+		  - the dialog has NO accessible name at all. Screen readers announce
+		    "dialog" with nothing else.
+
+		Fix during workshop: one of
+		  A) drop `showHeader="false"` and let UI5 render its built-in header
+		     with the `title` property, OR
+		  B) keep the in-content title but promote it to `sap.m.Title` and
+		     reference it from the Dialog via `ariaLabelledBy`.
+	-->
+	<Dialog id="idOrderDialog" contentWidth="22rem" showHeader="false" class="sapUiContentPadding" afterClose=".onOrderDialogAfterClose">
+		<content>
+			<Text text="{= 'Are you sure you want to order ' + ${catalog>/pendingOrder/productName} + '?' }" />
+
+		</content>
+		<beginButton>
+			<Button text="Confirm" type="Emphasized" press=".onSubmitOrder" />
+		</beginButton>
+		<endButton>
+			<Button text="Cancel" press=".onCancelOrder" />
+		</endButton>
+	</Dialog>
+
+</core:FragmentDefinition>
