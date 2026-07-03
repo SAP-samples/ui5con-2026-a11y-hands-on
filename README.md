@@ -1,41 +1,54 @@
-# SAP-samples/repository-template
-This default template for SAP Samples repositories includes files for README, LICENSE, and REUSE.toml. All repositories on github.com/SAP-samples will be created based on this template.
+![OpenUI5 logo](http://openui5.org/images/OpenUI5_new_big_side.png)
 
-# Containing Files
+# Fixing Accessibility Issues in UI5 Apps
 
-1. The LICENSE file:
-In most cases, the license for SAP sample projects is `Apache 2.0`.
-
-2. The REUSE.toml file: 
-The [Reuse Tool](https://reuse.software/) must be used for your samples project. You can find the REUSE.toml in the project initial. Please replace the parts inside the single angle quotation marks < > by the specific information for your repository.
-
-3. The README.md file (this file):
-Please edit this file as it is the primary description file for your project. You can find some placeholder titles for sections below.
-
-# [Title]
-<!-- Please include descriptive title -->
+> **UI5con 2026 Hands-on Workshop:** Identify and fix accessibility (a11y) issues in a UI5 application — a series of guided hand-fixes covering the most common defects you'll see in real UI5 apps.
 
 <!--- Register repository https://api.reuse.software/register, then add REUSE badge:
-[![REUSE status](https://api.reuse.software/badge/github.com/SAP-samples/REPO-NAME)](https://api.reuse.software/info/github.com/SAP-samples/REPO-NAME)
+[![REUSE status](https://api.reuse.software/badge/github.com/SAP-samples/ui5con-2026-a11y-hands-on)](https://api.reuse.software/info/github.com/SAP-samples/ui5con-2026-a11y-hands-on)
 -->
 
 ## Description
-<!-- Please include SEO-friendly description -->
 
-## Requirements
+This repository contains the demo project for the **Accessibility Hands-On** at [UI5con 2026](https://openui5.org/ui5con/). You will work with a small UI5 application that contains several intentional accessibility issues — broken heading hierarchy, missing image alt text, unlabelled form controls, missing dialog labels, missing page landmarks, and more — and fix them step by step.
 
-## Download and Installation
+> [!IMPORTANT]
+> This project **intentionally contains accessibility issues** for educational purposes. Attendees will identify and fix these issues step-by-step during the workshop.
+
+## Prerequisites
+
+Before you arrive at the workshop, please complete the setup steps in:
+
+📄 **[hands-on-lectures/prerequisites.md](hands-on-lectures/prerequisites.md)**
+
+> [!IMPORTANT]
+> Do this **before** you arrive at the conference. Conference Wi-Fi is slow — installing Node.js, cloning the repo, and setting up Claude on-site will eat into your hands-on time.
+
+The prerequisites cover:
+
+- **Node.js** (`^20.17.0` or `>=22.9.0`) and **npm** (`>=8`) — to run the UI5 dev server
+- **Git** — to clone this repo
+- A modern browser (Chrome / Edge / Firefox)
+- **axe DevTools** browser extension — to scan the app for a11y violations
+- **HeadingsMap** browser extension — to visualise the page's heading outline
+- **Claude Code CLI** *or* **claude.ai web chat** — for the AI-assisted exercise
+
+See [hands-on-lectures/prerequisites.md](hands-on-lectures/prerequisites.md) for the full step-by-step setup.
 
 ## Known Issues
-<!-- You may simply state "No known issues. -->
+
+No known issues.
 
 ## How to obtain support
-[Create an issue](https://github.com/SAP-samples/<repository-name>/issues) in this repository if you find a bug or have questions about the content.
- 
+
+[Create an issue](https://github.com/SAP-samples/ui5con-2026-a11y-hands-on/issues) in this repository if you find a bug or have questions about the content.
+
 For additional support, [ask a question in SAP Community](https://answers.sap.com/questions/ask.html).
 
 ## Contributing
+
 If you wish to contribute code, offer fixes or improvements, please send a pull request. Due to legal reasons, contributors will be asked to accept a DCO when they create the first pull request to this project. This happens in an automated fashion during the submission process. SAP uses [the standard DCO text of the Linux Foundation](https://developercertificate.org/).
 
 ## License
+
 Copyright 2026 SAP SE or an SAP affiliate company and ui5con-2026-a11y-hands-on contributors. Please see our [LICENSE](LICENSE) for copyright and license information. Detailed information including third-party components and their licensing/copyright information is available [via the REUSE tool](https://api.reuse.software/info/github.com/SAP-samples/ui5con-2026-a11y-hands-on).
