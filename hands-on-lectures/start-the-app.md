@@ -54,4 +54,4 @@ Open the app at <http://localhost:8080/index.html>. You should see the **IT Equi
 
 ---
 
-[← Back to Prerequisites](prerequisites.md) · [Next: Exercise 1 — Heading hierarchy →](01-fix-headings.md)
+[← Back to Prerequisites](prerequisites.md) · [Back to README](../README.md) · [Next: Exercise 1 — Heading hierarchy →](01-fix-headings.md)

@@ -163,4 +163,4 @@ In Exercise 6 we'll explain how to substitute a Claude Code skill with a claude.
 
 ---
 
-[Back to README](../README.md)
+[Back to README](../README.md) · [Next: Start the app →](start-the-app.md)
