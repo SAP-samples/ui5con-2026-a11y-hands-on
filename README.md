@@ -6,6 +6,15 @@
 
 [![REUSE status](https://api.reuse.software/badge/github.com/SAP-samples/ui5con-2026-a11y-hands-on)](https://api.reuse.software/info/github.com/SAP-samples/ui5con-2026-a11y-hands-on)
 
+## Requirements
+
+- **Node.js** `^20.17.0` or `>=22.9.0`, and **npm** `>=8` — to run the UI5 dev server
+- **Git** — to clone this repository
+- A modern browser (Chrome, Edge, or Firefox) with the **axe DevTools** and **HeadingsMap** extensions installed
+- **Claude Code CLI** or a **claude.ai** account — for Exercise 6
+
+Full step-by-step setup instructions (with install commands and verification steps) are in [hands-on-lectures/prerequisites.md](hands-on-lectures/prerequisites.md).
+
 ## Description
 
 This repository contains the demo project for the **Accessibility Hands-On** at [UI5con 2026](https://openui5.org/ui5con/). You will work with a small UI5 application that contains several intentional accessibility issues — broken heading hierarchy, missing image alt text, unlabelled form controls, missing dialog labels, missing page landmarks, and more — and fix them step by step.
@@ -84,9 +93,15 @@ No known issues.
 
 For additional support, [ask a question in SAP Community](https://answers.sap.com/questions/ask.html).
 
+## Code of Conduct
+
+This project follows the [SAP Open Source Code of Conduct](CODE_OF_CONDUCT.md), adapted from the [Contributor Covenant](https://www.contributor-covenant.org) v2.1. By participating, you agree to abide by its terms. Report unacceptable behavior to ospo@sap.com.
+
 ## Contributing
 
 If you wish to contribute code, offer fixes or improvements, please send a pull request. Due to legal reasons, contributors will be asked to accept a DCO when they create the first pull request to this project. This happens in an automated fashion during the submission process. SAP uses [the standard DCO text of the Linux Foundation](https://developercertificate.org/).
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for details.
 
 ## License
 
