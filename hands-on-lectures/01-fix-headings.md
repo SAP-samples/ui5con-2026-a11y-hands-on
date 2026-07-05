@@ -101,4 +101,4 @@ Two rules of thumb:
 
 ---
 
-[← Back to README](../README.md) · [Next: Exercise 2 — Image alt text →](02-fix-image-alt.md)
+[← Previous: Start the app](start-the-app.md) · [Back to README](../README.md) · [Next: Exercise 2 — Image alt text →](02-fix-image-alt.md)
