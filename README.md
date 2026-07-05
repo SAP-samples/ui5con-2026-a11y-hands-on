@@ -4,9 +4,7 @@
 
 > **UI5con 2026 Hands-on Workshop:** Identify and fix accessibility (a11y) issues in a UI5 application — a series of guided hand-fixes covering the most common defects you'll see in real UI5 apps.
 
-<!--- Register repository https://api.reuse.software/register, then add REUSE badge:
 [![REUSE status](https://api.reuse.software/badge/github.com/SAP-samples/ui5con-2026-a11y-hands-on)](https://api.reuse.software/info/github.com/SAP-samples/ui5con-2026-a11y-hands-on)
--->
 
 ## Description
 

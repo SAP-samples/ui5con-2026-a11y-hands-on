@@ -2,7 +2,7 @@
 	"name": "com.sap.a11yworkshop",
 	"version": "1.0.0",
 	"description": "UI5 Application: com.sap.a11yworkshop",
-	"author": "I518532",
+	"author": "Gergana Georgieva <gergana.georgieva01@sap.com>",
 	"license": "Apache-2.0",
 	"scripts": {
 		"clean": "rimraf dist coverage",
