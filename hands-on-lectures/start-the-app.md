@@ -20,8 +20,8 @@ In the prerequisites you cloned the repo to your **Desktop**, so the path is the
 
 | OS | Command |
 | --- | --- |
-| **macOS / Linux** | `cd ~/Desktop/ui5con-2026-claude-a11y` |
-| **Windows (PowerShell / cmd)** | `cd %USERPROFILE%\Desktop\ui5con-2026-claude-a11y` |
+| **macOS / Linux** | `cd ~/Desktop/ui5con-2026-a11y-hands-on` |
+| **Windows (PowerShell / cmd)** | `cd %USERPROFILE%\Desktop\ui5con-2026-a11y-hands-on` |
 
 > 💡 **Tip — drag-and-drop the path:** if you cloned somewhere else, open the cloned folder in **Finder** (macOS) or **File Explorer** (Windows), then drag the folder into the terminal after typing `cd ` (with a trailing space). The full path is pasted for you — press <kbd>Enter</kbd>.
 
@@ -35,7 +35,7 @@ ls package.json        # should print: package.json
 dir package.json       # should list package.json
 ```
 
-If the file isn't found, you're not in the project root — `cd` into the `ui5con-2026-claude-a11y` folder.
+If the file isn't found, you're not in the project root — `cd` into the `ui5con-2026-a11y-hands-on` folder.
 
 ## 3. Install and start
 

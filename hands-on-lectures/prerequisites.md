@@ -101,17 +101,17 @@ Then clone the repo (still inside your Desktop folder):
 
 ```bash
 # HTTPS (works everywhere)
-git clone https://github.com/SAP-samples/ui5con-2026-claude-a11y.git
+git clone https://github.com/SAP-samples/ui5con-2026-a11y-hands-on.git
 
 # or SSH (if you have an SSH key set up on GitHub)
-git clone git@github.com:SAP-samples/ui5con-2026-claude-a11y.git
+git clone git@github.com:SAP-samples/ui5con-2026-a11y-hands-on.git
 
-cd ui5con-2026-claude-a11y
+cd ui5con-2026-a11y-hands-on
 ```
 
-You should now have a folder called **`ui5con-2026-claude-a11y`** sitting on your Desktop.
+You should now have a folder called **`ui5con-2026-a11y-hands-on`** sitting on your Desktop.
 
-> No git? Download the ZIP from the GitHub UI — green **Code** button → **Download ZIP**, move the file to your **Desktop**, and unpack it there. Rename the unpacked folder to `ui5con-2026-claude-a11y` (it sometimes unpacks as `ui5con-2026-claude-a11y-main`) so the paths in Exercise 1 line up.
+> No git? Download the ZIP from the GitHub UI — green **Code** button → **Download ZIP**, move the file to your **Desktop**, and unpack it there. Rename the unpacked folder to `ui5con-2026-a11y-hands-on` (it sometimes unpacks as `ui5con-2026-a11y-hands-on-main`) so the paths in Exercise 1 line up.
 
 ### Step 6 — Set up Claude (for Exercise 6)
 
@@ -138,7 +138,7 @@ If not, install it: <https://docs.claude.com/en/docs/claude-code/quickstart>. Si
 claude --version
 ```
 
-Then open the workshop repo in Claude Code (`cd ui5con-2026-claude-a11y && claude`) and type `/help` — you should see the built-in slash commands listed.
+Then open the workshop repo in Claude Code (`cd ui5con-2026-a11y-hands-on && claude`) and type `/help` — you should see the built-in slash commands listed.
 
 #### Option B — claude.ai web chat
 
