@@ -5,7 +5,7 @@
 > 🤖 **Claude needed?** **Yes** — this exercise depends on Claude Code being installed (see [prerequisites](prerequisites.md)) plus the **`ui5-best-practices-accessibility`** skill, which ships inside the **UI5 plugin** from `UI5/plugins-coding-agents` (installed in step 1 below).
 
 > [!NOTE]
-> The steps below are written for the **Claude Code CLI**. If you set up the claude.ai web chat in the [prerequisites](prerequisites.md#step-6--set-up-claude-for-exercise-6) instead, use your Project's custom instructions to paste in the same skill guidance — a facilitator will share the paste-in text at the start of this exercise.
+> The steps below are written for the **Claude Code CLI**. If you set up the claude.ai web chat in the [prerequisites](prerequisites.md#step-6--set-up-claude-for-exercise-6) instead, follow the free-tier fallback in [**06-claude-web-prompt.md**](06-claude-web-prompt.md) — it contains the exact prompt to paste alongside the three files under review.
 
 ## What you'll learn
 
