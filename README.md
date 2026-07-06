@@ -75,7 +75,7 @@ Research-and-fix — the app has zero landmarks: no `<main>`, no `<nav>` around 
 
 📄 [hands-on-lectures/06-claude-a11y-skill.md](hands-on-lectures/06-claude-a11y-skill.md)
 
-AI-assisted — install the `ui5-accessibility` Claude Code plugin and let its skill find and fix the remaining a11y issues across the codebase, applying the same patterns you learned in Exercises 1–5. Runs in either the Claude Code CLI or the claude.ai web chat — set up whichever you prefer in the [prerequisites](hands-on-lectures/prerequisites.md#step-6--set-up-claude-for-exercise-6).
+AI-assisted — install the `ui5-accessibility` Claude Code plugin and let its skill find and fix the remaining a11y issues across the codebase, applying the same patterns you learned in Exercises 1–5. Runs in either the Claude Code CLI or the claude.ai web chat — set up whichever you prefer in the [prerequisites](hands-on-lectures/prerequisites.md#step-6--set-up-claude-for-exercise-6). Free-tier claude.ai users: use the paste-in prompt at [hands-on-lectures/06-claude-web-prompt.md](hands-on-lectures/06-claude-web-prompt.md).
 
 ### Step 9 — Exercise 7: Add a keyboard shortcut to order the focused card *(10 min)* — *optional*
 

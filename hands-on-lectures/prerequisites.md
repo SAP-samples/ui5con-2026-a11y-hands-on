@@ -155,7 +155,7 @@ Use this if you don't have a Claude paid plan or don't want to install the CLI.
 
    A reasonable summary means you're ready.
 
-In Exercise 6 we'll explain how to substitute a Claude Code skill with a claude.ai custom instruction.
+In Exercise 6 we'll explain how to substitute a Claude Code skill with a claude.ai custom instruction. The full free-tier walkthrough — including the exact prompt to paste — lives in [**06-claude-web-prompt.md**](06-claude-web-prompt.md).
 
 ---
 
