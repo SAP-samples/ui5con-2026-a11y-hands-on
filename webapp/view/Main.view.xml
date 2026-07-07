@@ -39,6 +39,13 @@
 						text="Orders"
 						tooltip="Open orders"
 						type="Transparent" />
+					<!--
+						GAP — Exercise 6 (skill sweep): the Avatar has no `tooltip`
+						and no associated Label / `ariaLabelledBy`, so the user
+						badge is exposed to assistive tech with no accessible
+						name. Left for the `ui5-best-practices-accessibility`
+						skill in Exercise 6 to find and fix rather than hand-taught.
+					-->
 					<Avatar initials="IP" backgroundColor="Accent6" displaySize="XS" />
 				</contentRight>
 			</Bar>
