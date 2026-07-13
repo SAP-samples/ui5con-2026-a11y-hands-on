@@ -45,10 +45,10 @@ Scroll to the **Skills** section — you should see `ui5-best-practices-accessib
 
 ### 2. Invoke the skill on the codebase
 
-In the same Claude Code session, ask Claude to sweep the app using the newly installed skill. A plain-language prompt is enough — Claude will pick up `ui5-best-practices-accessibility` from the available skills list because the request matches its description:
+In the same Claude Code session, ask Claude to sweep the app using the newly installed skill. A short, plain-language prompt is enough — Claude will pick up `ui5-best-practices-accessibility` from the available skills list because the request matches its description. Paste this in:
 
 ```
-Use the ui5-best-practices-accessibility skill to review webapp/ and list every accessibility issue you find, grouped by file.
+Use the /ui5-best-practices-accessibility skill to sweep webapp/ for any accessibility issues. For each finding, show me the file + line, explain the WCAG / UI5 pattern it violates, and propose a diff. Don't apply anything yet — I want to review each fix before you edit.
 ```
 
 Claude will:
@@ -58,15 +58,26 @@ Claude will:
 3. List every place a fix is needed, with file + line numbers.
 4. Propose a diff for each one (it will *not* edit silently — you approve each change).
 
-> 💡 The skill's own description tells Claude *when* to activate — you don't have to name it every time. In future sessions, asking "make this dialog accessible" or "check the headings on this view" is usually enough for Claude to pull the skill in on its own.
+On this codebase, expect the skill to flag at least:
 
-### 3. Review the diffs
+- **Icon-only Buttons with no `tooltip`** on the product cards (heart / share) and in the app header (notification bell). Icon-only Buttons have no visible text, so without `tooltip` UI5 has nothing to map onto `aria-label` — screen readers announce "button" with no name. Fix: add `tooltip="{i18n>...}"`.
+- **The header `Avatar`** rendered with initials but no `tooltip` / no `ariaLabelledBy`. Same failure mode — a nameless interactive-looking element. Fix: add a `tooltip` (or an associated `Label`) that describes the signed-in user.
+
+The icon-only Buttons and the header `Avatar` in `webapp/view/Main.view.xml` are the main anchors the skill should surface. If it also proposes fixes elsewhere, that's fine; the skill enforces the same patterns wherever they apply.
+
+> 💡 The skill's own description tells Claude *when* to activate — you don't have to name it every time. In future sessions, asking "make this dialog accessible" or "check the headings on this view" is usually enough for Claude to pull the skill in on its own. Naming it explicitly (as in the prompt above) is the reliable form for a workshop, where you want everyone to get the same behaviour.
+
+### 3. Review and accept the diffs
 
 For each proposed change:
 
-- **Match against what you learned.** If the skill suggests adding `ariaLabelledBy` to a dialog input, that should look familiar from Exercise 4.
+- **Match against what you learned.** If the skill suggests adding `tooltip` to an icon-only button, that should look familiar from the `tooltip → aria-label` mapping discussed in Exercises 1–5.
 - **Reject anything you don't understand.** The skill is a starting point, not an oracle. Spot-check at least one fix in each category against the corresponding hand-fix lecture.
-- **Accept the diff** if it matches the pattern.
+- **Accept the diff** if it matches the pattern. Once you're happy with the full set, ask Claude to apply them:
+
+```
+Looks good — apply all the fixes we just reviewed.
+```
 
 ### 4. Re-run axe DevTools
 
