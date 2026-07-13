@@ -43,11 +43,11 @@ A screen-reader user pressing `H` gets a big undifferentiated list of `<h2>`s an
 
 ## The problem
 
-Open `webapp/view/Main.view.xml`. Three GAP comments call out the heading defects:
+Open `webapp/view/Main.view.xml`. There are three heading defects:
 
 - **Part A (missing `<h1>`)** — near the top of the file, inside the `customHeader`. The `<Title id="idAppTitle" text="IT Equipment Catalog" />` used to declare `level="H1"`. That property is gone.
-- **Part B (flat outline in the filter sidebar)** — inside the filter Panel, above `<Title text="Brand" />` and its siblings.
-- **Part B (flat outline in the product cards)** — inside the product-card template, above the product-name `<Title text="{catalog>name}" …>`.
+- **Part B (flat outline in the filter sidebar)** — inside the filter Panel, at `<Title text="Brand" />` and its siblings.
+- **Part B (flat outline in the product cards)** — inside the product-card template, at the product-name `<Title text="{catalog>name}" …>`.
 
 All three are the same defect with the same cause. Read on before you touch anything.
 

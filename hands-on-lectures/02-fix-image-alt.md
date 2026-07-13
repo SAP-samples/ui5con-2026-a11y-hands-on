@@ -26,7 +26,7 @@ Try it with a screen reader if you have one to hand — VoiceOver will announce 
 
 ## The problem
 
-Open `webapp/view/Main.view.xml` and find the product-card image (search for the GAP comment *"Exercise 2 (image alt text)"*):
+Open `webapp/view/Main.view.xml` and find the product-card image (the `<Image>` inside the product-card template, bound to `src="{catalog>image}"`):
 
 ```xml
 <Image
