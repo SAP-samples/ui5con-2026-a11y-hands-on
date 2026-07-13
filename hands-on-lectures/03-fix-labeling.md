@@ -55,7 +55,7 @@ Open `webapp/view/Main.view.xml` and find the sort toolbar (search for `idSortSe
 
 Something is missing right before the `<Select>`. There used to be a `sap.m.Label` there that named the dropdown; someone deleted it. The rendered `<div role="combobox">` now has no `aria-labelledby`, no `aria-label`, and no `<label for="…">` — hence axe's complaint.
 
-There is a `GAP — Exercise 3 (labeling)` comment in the source right above the `<Select>` that explains what's wrong. Don't jump to the answer yet — first look up how UI5 exposes form labels in the ARIA layer.
+The `<Select>` in the source has no label right above it — that's what's wrong. Don't jump to the answer yet — first look up how UI5 exposes form labels in the ARIA layer.
 
 ## Research prompts
 

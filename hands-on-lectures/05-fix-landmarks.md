@@ -37,7 +37,7 @@ Click each to expand — axe highlights the sub-header breadcrumb bar, the filte
 
 ## The problem
 
-Open `webapp/view/Main.view.xml`. There are **four** landmark defects in this file — three GAP comments call them out. All four come together to leave the app with zero landmarks.
+Open `webapp/view/Main.view.xml`. There are **four** landmark defects in this file. All four come together to leave the app with zero landmarks.
 
 ### 1. No `main` (or `banner`) landmark on the Page
 
@@ -49,7 +49,7 @@ Look at the `<Page id="idMainPage" …>` opening tag. It has no `<landmarkInfo>`
 
 Right under the app header sits a **sub-header** hosting `sap.m.Breadcrumbs` — the *All Products / Laptops / Monitors / Peripherals* trail. Semantically that's the *primary category navigation* of the page: click a crumb, the product list filters. It should be inside a `<nav>` landmark, so screen-reader rotor users can jump to it with *"navigation"*.
 
-Look at the GAP comment above the `<subHeader>` block (search: *"Exercise 5 (landmarks) part C"*). Today the breadcrumbs sit inside a generic Bar with no landmark role — they're orphan content.
+Look at the `<subHeader>` block. Today the breadcrumbs sit inside a generic Bar with no landmark role — they're orphan content.
 
 `sap.m.Bar` itself doesn't have an `accessibleRole` property, but `sap.m.Page`'s `PageAccessibleLandmarkInfo` has a `subHeaderRole` / `subHeaderLabel` pair that wraps the sub-header in the role you pick. Which value produces `<nav>`?
 
@@ -66,11 +66,11 @@ Further down, the filter sidebar `Panel`:
     width="260px">
 ```
 
-Look at the GAP comment above it (search: *"Exercise 5 (landmarks) part A"*). The `accessibleRole` property is missing. Without it, `sap.m.Panel` renders a generic `<div>` and nothing tells assistive tech "this is a side panel of filters, distinct from the main product list."
+Look at the filter Panel's opening tag. The `accessibleRole` property is missing. Without it, `sap.m.Panel` renders a generic `<div>` and nothing tells assistive tech "this is a side panel of filters, distinct from the main product list."
 
 ### 4. Product-catalog Panel has no `accessibleRole` either
 
-And the same defect on the inner product-catalog Panel — the GAP comment there is labelled *"Exercise 5 (landmarks) part B"*. Without a role, the entire product area is *also* orphan content.
+And the same defect on the inner product-catalog Panel — it too is missing an `accessibleRole`. Without a role, the entire product area is *also* orphan content.
 
 That's the compound break. Fixing only one of the four still leaves violations; you need all four.
 
