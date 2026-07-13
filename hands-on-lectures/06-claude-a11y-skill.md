@@ -2,10 +2,10 @@
 
 > ⏱ **Duration:** ~15 minutes
 > 🛠 **You'll edit:** none directly — Claude proposes the diffs, you review and accept
-> 🤖 **Claude needed?** **Yes** — this exercise depends on Claude Code being installed (see [prerequisites](prerequisites.md)) plus the **`ui5-best-practices-accessibility`** plugin (installed in step 1 below).
+> 🤖 **Claude needed?** **Yes** — this exercise depends on Claude Code being installed (see [prerequisites](prerequisites.md)) plus the **`ui5-best-practices-accessibility`** skill, which ships inside the **UI5 plugin** from `UI5/plugins-coding-agents` (installed in step 1 below).
 
 > [!NOTE]
-> The steps below are written for the **Claude Code CLI**. If you set up the claude.ai web chat in the [prerequisites](prerequisites.md#step-6--set-up-claude-for-exercise-6) instead, use your Project's custom instructions to paste in the same skill guidance — a facilitator will share the paste-in text at the start of this exercise.
+> The steps below are written for the **Claude Code CLI**. If you set up the claude.ai web chat in the [prerequisites](prerequisites.md#step-6--set-up-claude-for-exercise-6) instead, follow the free-tier fallback in [**06-claude-web-prompt.md**](06-claude-web-prompt.md) — it contains the exact prompt to paste alongside the three files under review.
 
 ## What you'll learn
 
@@ -15,33 +15,49 @@ How a *skill* — a small, focused instruction file distributed via a Claude Cod
 
 Exercises 1–5 fixed the issues we *knew about*. A real UI5 codebase will have many more — a half-finished feature branch, a copy-pasted dialog from a year ago, a control that was added before the team had an a11y reviewer. Hand-fixing each one is slow and easy to forget; running them past a generic "make this accessible" prompt misses the UI5-specific patterns (e.g. `ariaLabelledBy` vs. `tooltip`, `PageAccessibleLandmarkInfo` for landmarks, `sap.ui.core.IFormContent`, the right way to set headings on `Title` / `Panel`, `InvisibleMessage` for status announcements).
 
-The fix is to give the AI a **skill**: a versioned cheat sheet that says *"in this codebase, on this framework, here is what 'accessible' actually means."* — and to ship that skill as a **plugin** so every teammate gets the same one with a single install command.
+The fix is to give the AI a **skill**: a versioned cheat sheet that says *"in this codebase, on this framework, here is what 'accessible' actually means."* — and to ship that skill as part of a **plugin** so every teammate gets the same one with a single install command.
 
 ## The fix
 
-The `ui5-best-practices-accessibility` skill lives in a separate plugin repository, not in this workshop repo. You install the plugin once into your Claude Code config and it becomes available in every UI5 project you open. It contains the same patterns you just applied by hand — accessible dialog labelling, heading hierarchy, image alt text, form labels, landmarks — plus icon-only button names, the document `lang` attribute, `InvisibleMessage` announcements for status changes, and other UI5 a11y rules, written as instructions Claude follows when invoked.
+The `ui5-best-practices-accessibility` skill ships inside the official **UI5 plugin** at [`UI5/plugins-coding-agents`](https://github.com/UI5/plugins-coding-agents) — the same plugin that provides the UI5 MCP server, linter, and API-docs tools. You install the plugin once into your Claude Code config and every skill inside it (including the accessibility one) becomes available in every UI5 project you open. The skill contains the same patterns you just applied by hand — accessible dialog labelling, heading hierarchy, image alt text, form labels, landmarks — plus icon-only button names, the document `lang` attribute, `InvisibleMessage` announcements for status changes, focus handling on `Dialog`/`Popover`, keyboard shortcuts via `CommandExecution`, and other UI5 a11y rules, written as instructions Claude follows when invoked.
 
 ### 1. Install the plugin
 
-The `ui5-best-practices-accessibility` plugin is published in the **`claude-plugins-official`** marketplace on GitHub. Installing it is a two-step flow: first add the marketplace to your Claude Code config (once per machine), then install the plugin from it.
+Installing a plugin in Claude Code is a two-step flow: **add the marketplace once per machine**, then **install the plugin** from it. Run both commands inside a Claude Code session (start it with `claude` in this repo).
 
-**b. Install the plugin from the marketplace:**
+**a. Add the marketplace** (only needed the first time you install anything from it):
 
 ```
-/plugin install ui5@claude-plugins-official ui5-best-practices-accessibility
+/plugin marketplace add anthropics/claude-plugins-official
 ```
 
-The `ui5@claude-plugins-official` piece names the *category* inside the marketplace; `ui5-best-practices-accessibility` is the plugin itself. Claude Code will download the plugin, register its skill, and reload your slash-command list.
+Claude Code will fetch the marketplace catalog. You should see a confirmation that `claude-plugins-official` was added.
+
+**b. Install the UI5 plugin from that marketplace:**
+
+```
+/plugin install ui5@claude-plugins-official
+```
+
+Claude Code will download and register the plugin. The install brings in **seven** UI5 skills (best-practices, accessibility, integration-cards, MDC, OPA5, smart-controls, tables), the UI5 MCP server, and slash commands.
 
 > 💡 **If `/plugin` isn't a command your Claude Code recognises**, your CLI is too old for the marketplace flow. Update it (`npm i -g @anthropic-ai/claude-code`) and restart the session. If you can't update on the conference Wi-Fi, a facilitator will help you side-load the skill from a USB / local folder.
 
-**c. Verify the skill is registered.** In the same session, type:
+**c. Reload plugins so the new skills register in this session:**
 
 ```
-/help
+/reload-plugins
 ```
 
-Scroll to the **Skills** section — you should see `ui5-best-practices-accessibility` listed. If it isn't there, quit Claude Code (`Ctrl-C` twice) and reopen it so the plugin is picked up on startup.
+The output will read something like `Reloaded: 1 plugin · 7 skills · … ` — the **7 skills** line confirms every UI5 skill loaded. If the count is lower (e.g. 4), your local plugin cache is missing files; run `/plugin install ui5@claude-plugins-official` again to re-fetch it, then `/reload-plugins` once more.
+
+**d. Verify the accessibility skill is registered.** Ask Claude:
+
+```
+List the ui5 skills you have loaded.
+```
+
+You should see `ui5:ui5-best-practices-accessibility` in the response along with its six siblings. If it isn't listed, quit Claude Code (`Ctrl-C` twice) and reopen it so the plugin is picked up cleanly on startup.
 
 ### 2. Invoke the skill on the codebase
 
@@ -49,14 +65,16 @@ In the same Claude Code session, ask Claude to sweep the app using the newly ins
 
 ```
 Use the /ui5-best-practices-accessibility skill to sweep webapp/ for any accessibility issues. For each finding, show me the file + line, explain the WCAG / UI5 pattern it violates, and propose a diff. Don't apply anything yet — I want to review each fix before you edit.
+
 ```
 
 Claude will:
 
-1. Load the `ui5-best-practices-accessibility` skill.
-2. Scan `webapp/` for the a11y patterns the skill documents.
-3. List every place a fix is needed, with file + line numbers.
-4. Propose a diff for each one (it will *not* edit silently — you approve each change).
+1. Load the `ui5-best-practices-accessibility` skill's `SKILL.md` instructions.
+2. Discover the app's views, fragments, and controllers under `webapp/` automatically.
+3. Walk each file against the skill's checklist (landmarks, labeling, headings, focus, keyboard, invisible messaging, reading order, target size).
+4. List every place a fix is needed, with file + line numbers.
+5. Propose a diff for each one (it will *not* edit silently — you approve each change).
 
 On this codebase, expect the skill to flag at least:
 
@@ -81,7 +99,7 @@ Looks good — apply all the fixes we just reviewed.
 
 ### 4. Re-run axe DevTools
 
-Reload the app and open axe DevTools. The remaining violations — if any — are either *false positives* (rare) or *gaps in the skill* (more likely; this is where you'd contribute back to the plugin repo).
+Reload the app and open axe DevTools. The remaining violations — if any — are either *false positives* (rare) or *gaps in the skill* (more likely; this is where you'd contribute back to [`UI5/plugins-coding-agents`](https://github.com/UI5/plugins-coding-agents)).
 
 ## Why this scales
 
